@@ -4,7 +4,7 @@ import time
 import click
 import requests
 
-SITE_URL = "http://localhost:8000"
+SITE_URL = "https://lutris.net"
 TOKEN_PATH = os.path.expanduser("~/.cache/lutris/dobharchu.token")
 
 
@@ -55,7 +55,8 @@ def add_runtime_folder(file_path, url_prefix, runtime):
     headers = {"Authorization": "Token %s" % token}
     if not file_path.endswith("/"):
         file_path += "/"
-
+    if not url_prefix.endswith("/"):
+        url_prefix += "/"
     for base, _dirs, files in os.walk(file_path):
         for _file in files:
             filename = os.path.join(base, _file)[len(file_path):]
@@ -68,3 +69,27 @@ def add_runtime_folder(file_path, url_prefix, runtime):
             response = requests.post(api_endpoint, payload, headers=headers)
             print(response.status_code)
             time.sleep(0.3)  # Find out if an admin token can bypass rate limiting?
+
+
+@main.command()
+@click.argument("file_path")
+@click.option("--url-prefix", required=True)
+@click.option("--runtime", required=True)
+def add_runtime_file(file_path, url_prefix, runtime):
+    """Scans a folder recursively and add every file as runtime component"""
+    token = read_token()
+    if not token:
+        print("You need to login first")
+    api_endpoint = SITE_URL + "/api/runtimes/" + runtime
+    headers = {"Authorization": "Token %s" % token}
+    if not url_prefix.endswith("/"):
+        url_prefix += "/"
+    filename = os.path.basename(file_path)
+    url = url_prefix + filename
+    print("%s %s %s" % (runtime, filename, url))
+    payload = {
+        "url": url,
+        "filename": filename
+    }
+    response = requests.post(api_endpoint, payload, headers=headers)
+    print(response.status_code)

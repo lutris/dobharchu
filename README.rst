@@ -25,4 +25,8 @@ the input as well as a --url-prefix and a --runtime parameter. Ex::
         --runtime icons
 
 This will recursively scan a folder and add every file as a component,
-prefixed by `url-prefix` and add them as runtime component.
+prefixed by `url-prefix` and add them as runtime component. The files must already be present
+on the remote location and should be an up to date representation of the folder you are scanning.
+
+In the above example, icons are stored in a git repository. This makes it easy to sync files locally.
+
