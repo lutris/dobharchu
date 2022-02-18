@@ -80,16 +80,19 @@ def add_runtime_file(file_path, url_prefix, runtime):
     token = read_token()
     if not token:
         print("You need to login first")
+        return
+    if file_path.startswith(("/", "~")):
+        print("Provide a relative path")
+        return
     api_endpoint = SITE_URL + "/api/runtimes/" + runtime
     headers = {"Authorization": "Token %s" % token}
     if not url_prefix.endswith("/"):
         url_prefix += "/"
-    filename = os.path.basename(file_path)
-    url = url_prefix + filename
-    print("%s %s %s" % (runtime, filename, url))
+    url = url_prefix + file_path
+    print("%s %s %s" % (runtime, file_path, url))
     payload = {
         "url": url,
-        "filename": filename
+        "filename": file_path
     }
     response = requests.post(api_endpoint, payload, headers=headers)
     print(response.status_code)
