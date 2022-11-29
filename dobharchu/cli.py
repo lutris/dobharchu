@@ -76,7 +76,7 @@ def add_runtime_folder(file_path, url_prefix, runtime):
 @click.option("--url-prefix", required=True)
 @click.option("--runtime", required=True)
 def add_runtime_file(file_path, url_prefix, runtime):
-    """Scans a folder recursively and add every file as runtime component"""
+    """Add an individual file to a runtime component"""
     token = read_token()
     if not token:
         print("You need to login first")

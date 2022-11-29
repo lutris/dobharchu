@@ -16,6 +16,7 @@ admin access to the lutris website in order to access the features of this tool.
 
 Current features
 ----------------
+Login to the Lutris website: `login`. Required before executing any command.
 
 Add a folder to a runtime: `add-runtime-folder`. This command takes a directory as
 the input as well as a --url-prefix and a --runtime parameter. Ex::
@@ -30,3 +31,4 @@ on the remote location and should be an up to date representation of the folder 
 
 In the above example, icons are stored in a git repository. This makes it easy to sync files locally.
 
+Add a file to a runtime: `add-runtime-file`
