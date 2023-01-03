@@ -14,6 +14,13 @@ admin access to the lutris website in order to access the features of this tool.
 
 `dobharchu` will eventually supersede the bash scripts used in the buildbot repo.
 
+Install
+-------
+
+To install from the source package in the user dir:
+
+`python setup.py install --user`
+
 Current features
 ----------------
 Login to the Lutris website: `login`. Required before executing any command.
@@ -31,4 +38,9 @@ on the remote location and should be an up to date representation of the folder 
 
 In the above example, icons are stored in a git repository. This makes it easy to sync files locally.
 
-Add a file to a runtime: `add-runtime-file`
+Add a single file: `add-runtime-file`::
+
+    dobharchu add-runtime-file hicolor/scalable/apps/ubisoft.svg \
+        --url-prefix=https://raw.githubusercontent.com/lutris/lutris-runtime/master/icons/ \
+        --runtime icons
+
